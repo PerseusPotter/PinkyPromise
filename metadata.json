@@ -1,0 +1,10 @@
+{
+  "name": "PromiseV3",
+  "creator": "Ch1ck3nNeedsRNG",
+  "description": "now with async/await!",
+  "entry": "index.js",
+  "version": "1.0.0",
+  "requires": [
+    "timers"
+  ]
+}
