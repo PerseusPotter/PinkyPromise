@@ -17,7 +17,7 @@ function transformBody(body) {
   body.body?.push(b.returnStatement(null));
   return b.blockStatement([
     b.returnStatement(b.callExpression(
-      b.identifier('genToPromise'),
+      b.identifier('__PROMISEV3_GENERATOR_TO_PROMISE$$'),
       [b.functionExpression(
         null,
         [],
@@ -39,7 +39,7 @@ module.exports = function transform(str) {
     // line numbers are already fucked anyway
     parser: {
       parse(source) {
-        return require("acorn").parse(source, {
+        return require('acorn').parse(source, {
           ecmaVersion: 'latest'
         });
       }

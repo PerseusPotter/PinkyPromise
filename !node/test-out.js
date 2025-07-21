@@ -7,12 +7,12 @@ function delay(ms, value, shouldReject = false) {
 }
 
 function edge() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     yield delay(1);
     const test = 1;
 
     return yield (() => {
-      return genToPromise(function*() {
+      return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
         const v1 = yield delay(1, 1);
         const v2 = delay(1, 1);
         const v3 = (1, 1);
@@ -28,7 +28,7 @@ function edge() {
             yield delay(1);
 
             function cringe() {
-              return genToPromise(function*() {
+              return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
                 yield delay(1);
                 return;
               }, this);
@@ -45,7 +45,7 @@ function edge() {
           return true;
         }
 
-        const f1 = () => genToPromise(function*() {
+        const f1 = () => __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
           yield delay(1, 1);
           return;
         }, this);
@@ -59,9 +59,9 @@ function edge() {
 }
 
 function testBasicAwait() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     function getValue() {
-      return genToPromise(function*() {
+      return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
         return 42;
         return;
       }, this);
@@ -74,9 +74,9 @@ function testBasicAwait() {
 }
 
 function testErrorHandling() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     function throwError() {
-      return genToPromise(function*() {
+      return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
         throw new Error("Boom");
         return;
       }, this);
@@ -94,7 +94,7 @@ function testErrorHandling() {
 }
 
 function testSequentialExecution() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     const start = Date.now();
     const a = yield delay(100, "a");
     const b = yield delay(100, "b");
@@ -106,7 +106,7 @@ function testSequentialExecution() {
 }
 
 function testParallelExecution() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     const start = Date.now();
     const [a, b] = yield Promise.all([delay(100, "a"), delay(100, "b")]);
     const duration = Date.now() - start;
@@ -117,7 +117,7 @@ function testParallelExecution() {
 }
 
 function testAwaitPrimitives() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     const a = yield 5;
     const b = yield "hello";
     const c = yield true;
@@ -132,7 +132,7 @@ const asyncRange = n => ({
 
     return {
       next() {
-        return genToPromise(function*() {
+        return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
           if (i >= n) {
             return {
               done: true
@@ -154,7 +154,7 @@ const asyncRange = n => ({
 });
 
 function testAsyncIterator() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     const results = [];
 
     {
@@ -179,16 +179,16 @@ function testAsyncIterator() {
 }
 
 function testNestedAsync() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     function inner() {
-      return genToPromise(function*() {
+      return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
         return yield delay(10, "nested");
         return;
       }, this);
     }
 
     function outer() {
-      return genToPromise(function*() {
+      return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
         return yield inner();
         return;
       }, this);
@@ -201,7 +201,7 @@ function testNestedAsync() {
 }
 
 (function runAllTests() {
-  return genToPromise(function*() {
+  return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     yield edge();
     console.log("Running async/await tests...");
     yield testBasicAwait();
@@ -216,7 +216,7 @@ function testNestedAsync() {
   }, this);
 })();
 
-function genToPromise(func, that) {
+function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
   return new Promise((resolve, reject) => {
     const gen = func.call(that);
     const catchMe = err => {
