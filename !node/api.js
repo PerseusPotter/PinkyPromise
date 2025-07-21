@@ -75,7 +75,7 @@ module.exports = function transform(str) {
       this.traverse(path);
     },
     visitAwaitExpression(path) {
-      path.replace(b.yieldExpression(path.node.argument, false));
+      path.replace(b.parenthesizedExpression(b.yieldExpression(path.node.argument, false)));
 
       this.traverse(path);
     },

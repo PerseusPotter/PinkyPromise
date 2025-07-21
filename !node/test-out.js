@@ -8,28 +8,28 @@ function delay(ms, value, shouldReject = false) {
 
 function edge() {
   return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-    yield delay(1);
+    (yield delay(1));
     const test = 1;
 
-    return yield (() => {
+    return (yield (() => {
       return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-        const v1 = yield delay(1, 1);
+        const v1 = (yield delay(1, 1));
         const v2 = delay(1, 1);
         const v3 = (1, 1);
 
         if (v3 === v2)
           return false;
 
-        const v4 = (1, yield delay(1, 1));
-        const v5 = yield delay(yield delay(1, 1), yield delay(1, 1));
+        const v4 = (1, (yield delay(1, 1)));
+        const v5 = (yield delay((yield delay(1, 1)), (yield delay(1, 1))));
 
         if (v5) {
           for (let i = 0; i < 10; i++) {
-            yield delay(1);
+            (yield delay(1));
 
             function cringe() {
               return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-                yield delay(1);
+                (yield delay(1));
                 return;
               }, this);
             }
@@ -38,7 +38,7 @@ function edge() {
 
             for (let j = 0; j < 10; j++) {
               if (i === j)
-                yield delay(1);
+                (yield delay(1));
             }
           }
 
@@ -46,13 +46,13 @@ function edge() {
         }
 
         const f1 = () => __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-          yield delay(1, 1);
+          (yield delay(1, 1));
           return;
         }, this);
 
         return;
       }, this);
-    })();
+    })());
 
     return;
   }, this);
@@ -67,7 +67,7 @@ function testBasicAwait() {
       }, this);
     }
 
-    const val = yield getValue();
+    const val = (yield getValue());
     console.assert(val === 42, "❌ Basic await failed");
     return;
   }, this);
@@ -83,7 +83,7 @@ function testErrorHandling() {
     }
 
     try {
-      yield throwError();
+      (yield throwError());
       console.assert(false, "❌ Error was not thrown");
     } catch (e) {
       console.assert(e.message === "Boom", "❌ Error message mismatch");
@@ -96,8 +96,8 @@ function testErrorHandling() {
 function testSequentialExecution() {
   return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     const start = Date.now();
-    const a = yield delay(100, "a");
-    const b = yield delay(100, "b");
+    const a = (yield delay(100, "a"));
+    const b = (yield delay(100, "b"));
     const duration = Date.now() - start;
     console.assert(duration >= 200, "❌ Sequential execution failed");
     console.assert(a === "a" && b === "b", "❌ Sequential result mismatch");
@@ -108,7 +108,7 @@ function testSequentialExecution() {
 function testParallelExecution() {
   return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     const start = Date.now();
-    const [a, b] = yield Promise.all([delay(100, "a"), delay(100, "b")]);
+    const [a, b] = (yield Promise.all([delay(100, "a"), delay(100, "b")]));
     const duration = Date.now() - start;
     console.assert(duration < 150, "❌ Parallel execution too slow");
     console.assert(a === "a" && b === "b", "❌ Parallel result mismatch");
@@ -118,9 +118,9 @@ function testParallelExecution() {
 
 function testAwaitPrimitives() {
   return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-    const a = yield 5;
-    const b = yield "hello";
-    const c = yield true;
+    const a = (yield 5);
+    const b = (yield "hello");
+    const c = (yield true);
     console.assert(a === 5 && b === "hello" && c === true, "❌ Awaiting primitives failed");
     return;
   }, this);
@@ -139,7 +139,7 @@ const asyncRange = n => ({
             };
           }
 
-          yield delay(10);
+          (yield delay(10));
 
           return {
             value: i++,
@@ -182,19 +182,19 @@ function testNestedAsync() {
   return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
     function inner() {
       return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-        return yield delay(10, "nested");
+        return (yield delay(10, "nested"));
         return;
       }, this);
     }
 
     function outer() {
       return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-        return yield inner();
+        return (yield inner());
         return;
       }, this);
     }
 
-    const result = yield outer();
+    const result = (yield outer());
     console.assert(result === "nested", "❌ Nested async failed");
     return;
   }, this);
@@ -202,15 +202,15 @@ function testNestedAsync() {
 
 (function runAllTests() {
   return __PROMISEV3_GENERATOR_TO_PROMISE$$(function*() {
-    yield edge();
+    (yield edge());
     console.log("Running async/await tests...");
-    yield testBasicAwait();
-    yield testErrorHandling();
-    yield testSequentialExecution();
-    yield testParallelExecution();
-    yield testAwaitPrimitives();
-    yield testAsyncIterator();
-    yield testNestedAsync();
+    (yield testBasicAwait());
+    (yield testErrorHandling());
+    (yield testSequentialExecution());
+    (yield testParallelExecution());
+    (yield testAwaitPrimitives());
+    (yield testAsyncIterator());
+    (yield testNestedAsync());
     console.log("✅ All async/await tests passed!");
     return;
   }, this);
