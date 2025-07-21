@@ -9,6 +9,6 @@
 		"uglify-js": "^3.19.3"
 	},
 	"scripts": {
-		"bundle": "npx esbuild api.js --bundle --platform=node --outfile=dist.js && npx uglifyjs -c -o dist.min.js dist.js"
+		"bundle": "npx esbuild api.js --bundle --platform=node --outfile=dist.js && npx uglifyjs -c -m -o dist.min.js dist.js"
 	}
 }
