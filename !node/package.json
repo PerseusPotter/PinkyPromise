@@ -1,0 +1,14 @@
+{
+	"dependencies": {
+		"acorn": "^8.15.0",
+		"ast-types": "^0.14.2",
+		"recast": "^0.23.11"
+	},
+	"devDependencies": {
+		"esbuild": "^0.25.8",
+		"uglify-js": "^3.19.3"
+	},
+	"scripts": {
+		"bundle": "npx esbuild api.js --bundle --platform=node --outfile=dist.js && npx uglifyjs -c -o dist.min.js dist.js"
+	}
+}
