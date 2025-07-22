@@ -23908,7 +23908,7 @@ var YIELD_VALUE_ID = b.identifier("__VALUE$$");
 function transformBody(body) {
   return b.blockStatement([
     b.returnStatement(b.callExpression(
-      b.identifier("__PROMISEV3_GENERATOR_TO_PROMISE$$"),
+      b.identifier("__GENERATOR_TO_PINKY_PROMISE$$"),
       [b.functionExpression(
         null,
         [],

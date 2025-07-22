@@ -25,7 +25,7 @@
   if (!nashorn) throw 'cannot find nashorn';
 
   // nashorn fails on the minified version and frankly idc enough
-  const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/.PromiseV3Injector/dist.js')).collect(Collectors.joining('\n'));
+  const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/.PinkyPromiseInjector/dist.js')).collect(Collectors.joining('\n'));
   nashorn.eval('var exports = {};');
   nashorn.eval('var BigInt = {};');
   nashorn.eval(transformCode);
@@ -42,7 +42,7 @@
       if (!moduleData) return src;
       const moduleName = moduleData[1];
       const filePath = moduleData[2];
-      if (!ModuleManager.INSTANCE.getCachedModules().find(v => v.getName().toLowerCase() === moduleName)?.getMetadata()?.getRequires()?.some(v => v.toLowerCase() === 'promisev3')) return src;
+      if (!ModuleManager.INSTANCE.getCachedModules().find(v => v.getName().toLowerCase() === moduleName)?.getMetadata()?.getRequires()?.some(v => v.toLowerCase() === 'pinkypromise')) return src;
 
       const reader = src.getReader();
       const writer = new StringWriter();
@@ -55,9 +55,9 @@
       const str = writer.toString();
       const modified = nashorn.invokeFunction('transform', str);
 
-      // has to be on same "level" otherwise fucks up relative resolves e.g. `require('../PromiseV3')`
-      // const outPath = Paths.get(`./config/ChatTriggers/modules/PromiseV3_Output/${moduleName}/${filePath}`);
-      const outPath = Paths.get(`./config/ChatTriggers/modules/${moduleName}_PromiseV3_Output/${filePath}`);
+      // has to be on same "level" otherwise fucks up relative resolves e.g. `require('../PinkyPromise')`
+      // const outPath = Paths.get(`./config/ChatTriggers/modules/PinkyPromise_Output/${moduleName}/${filePath}`);
+      const outPath = Paths.get(`./config/ChatTriggers/modules/${moduleName}_PinkyPromise/${filePath}`);
 
       Files.createDirectories(outPath.getParent());
       try {

@@ -389,7 +389,7 @@ export default (function() {
   })();
 
   globalNS['Promise'] = Promise;
-  globalNS['__PROMISEV3_GENERATOR_TO_PROMISE$$'] = function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
+  globalNS['__GENERATOR_TO_PINKY_PROMISE$$'] = function __GENERATOR_TO_PINKY_PROMISE$$(func, that) {
     return new Promise((resolve, reject) => {
       const gen = func.call(that);
       const catchMe = err => {

@@ -28635,7 +28635,7 @@ var createTempVar = /* @__PURE__ */ function() {
 var YIELD_RETURN_ID = b.identifier("__RETURN$$");
 var YIELD_VALUE_ID = b.identifier("__VALUE$$");
 function transformBody(body) {
-  return b.blockStatement([b.returnStatement(b.callExpression(b.identifier("__PROMISEV3_GENERATOR_TO_PROMISE$$"), [b.functionExpression(null, [], body, true, true), THIS_ID]))]);
+  return b.blockStatement([b.returnStatement(b.callExpression(b.identifier("__GENERATOR_TO_PINKY_PROMISE$$"), [b.functionExpression(null, [], body, true, true), THIS_ID]))]);
 }
 function transform(str) {
   var ast = (0, import_recast.parse)(str, {

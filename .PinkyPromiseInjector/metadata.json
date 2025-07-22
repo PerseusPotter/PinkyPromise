@@ -1,5 +1,5 @@
 {
-  "name": "PromiseV3Injector",
+  "name": "PinkyPromiseInjector",
   "creator": "Ch1ck3nNeedsRNG",
   "description": "required for async/await",
   "entry": "injector.js",

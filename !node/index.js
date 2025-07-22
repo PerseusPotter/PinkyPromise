@@ -4,7 +4,7 @@ const fs = require('fs');
 
   const input = fs.readFileSync('./test.js').toString();
   fs.writeFileSync('./test-out.js', transform(input) + `
-function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
+function __GENERATOR_TO_PINKY_PROMISE$$(func, that) {
   return new Promise((resolve, reject) => {
     const gen = func.call(that);
     const catchMe = err => {

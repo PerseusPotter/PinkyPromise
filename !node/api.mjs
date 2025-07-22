@@ -25,7 +25,7 @@ function transformBody(body) {
   // body.body?.push(b.returnStatement(null));
   return b.blockStatement([
     b.returnStatement(b.callExpression(
-      b.identifier('__PROMISEV3_GENERATOR_TO_PROMISE$$'),
+      b.identifier('__GENERATOR_TO_PINKY_PROMISE$$'),
       [b.functionExpression(
         null,
         [],
