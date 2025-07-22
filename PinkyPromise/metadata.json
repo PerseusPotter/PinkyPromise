@@ -1,7 +1,7 @@
 {
   "name": "PinkyPromise",
   "creator": "Ch1ck3nNeedsRNG",
-  "description": "now with async/await!",
+  "description": "now with async/await!\nthanks IcyHenryT for the idea\nthanks tree man (DocilElm) for the name",
   "entry": "index.js",
   "version": "1.0.0",
   "requires": [
