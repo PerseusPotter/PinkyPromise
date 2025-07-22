@@ -25,7 +25,7 @@
   if (!nashorn) throw 'cannot find nashorn';
 
   // nashorn fails on the minified version and frankly idc enough
-  const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/_PromiseV3Injector/dist.js')).collect(Collectors.joining('\n'));
+  const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/.PromiseV3Injector/dist.js')).collect(Collectors.joining('\n'));
   nashorn.eval('var exports = {};');
   nashorn.eval('var BigInt = {};');
   nashorn.eval(transformCode);
