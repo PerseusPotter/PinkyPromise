@@ -411,5 +411,6 @@ export default (function() {
       loop();
     });
   };
+  globalNS['Symbol'].asyncIterator = Symbol.for('asyncIterator');
   return Promise;
 })();
