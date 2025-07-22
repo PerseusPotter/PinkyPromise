@@ -1,5 +1,5 @@
 import { parse, print, types, visit } from 'recast';
-import { parse as parseAcorn } from 'acorn';
+import { parse as parseAcorn } from 'acorn-loose';
 const b = types.builders;
 const n = types.namedTypes;
 

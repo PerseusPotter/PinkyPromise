@@ -389,7 +389,7 @@ export default (function() {
   })();
 
   globalNS['Promise'] = Promise;
-  globalNS['__PROMISEV3_GENERATOR_TO_PROMISE$$'] = function genToPromise(func, that) {
+  globalNS['__PROMISEV3_GENERATOR_TO_PROMISE$$'] = function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
     return new Promise((resolve, reject) => {
       const gen = func.call(that);
       const catchMe = err => {
@@ -402,15 +402,13 @@ export default (function() {
         }
       }
       function loop(value) {
-        try {
-          const iter = gen.next(value);
-          if (iter.done) resolve(iter.value);
-          else Promise.resolve(iter.value).then(loop).catch(e => catchMe(e) && loop());
-        } catch (e) {
-          catchMe(e);
-        }
+        let iter = gen.next(value);
+        // fuck you rhino Cannot read property "__RETURN$$" from undefined \`iter.value?.__RETURN$$\`
+        if (iter.value?.['__RETURN$$']) iter = { done: true, value: iter.value.__VALUE$$ };
+        if (iter.done) resolve(iter.value);
+        else Promise.resolve(iter.value).then(loop).catch(e => catchMe(e) && loop());
       }
-      loop();
+      Promise.resolve().then(loop).catch(e => catchMe(e) && loop());
     });
   };
   globalNS['Symbol'].asyncIterator = Symbol.for('asyncIterator');

@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-const fileReg = /^(?!!).+\.(js|json|ts)$/;
+const fileReg = /^(?!!).+\.(js|json|ts|md)$/;
 const folderReg = /^(?!!)/;
 const ignored = new Set(['node_modules', 'package.json', 'package-lock.json', 'pnpm-lock.yaml']);
 
@@ -30,5 +30,5 @@ async function copy(src, dst) {
 
 const appdata = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + '/.local/share');
 const moduleName = path.basename(__dirname);
-const dst = path.join(appdata, String.raw`.minecraft\config\ChatTriggers\modules`, moduleName);
+const dst = path.join(appdata, String.raw`.minecraft\config\ChatTriggers\modules`);
 copy('.', dst);

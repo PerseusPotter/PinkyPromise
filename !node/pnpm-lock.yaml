@@ -8,6 +8,9 @@ dependencies:
   acorn:
     specifier: ^8.15.0
     version: 8.15.0
+  acorn-loose:
+    specifier: ^8.5.2
+    version: 8.5.2
   ast-types:
     specifier: ^0.14.2
     version: 0.14.2
@@ -1381,6 +1384,13 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /acorn-loose@8.5.2:
+    resolution: {integrity: sha512-PPvV6g8UGMGgjrMu+n/f9E/tCSkNQ2Y97eFvuVdJfG11+xdIeDcLyNdC8SHcrHbRqkfwLASdplyR6B6sKM1U4A==}
+    engines: {node: '>=0.4.0'}
+    dependencies:
+      acorn: 8.15.0
+    dev: false
 
   /acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
