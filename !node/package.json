@@ -5,10 +5,14 @@
 		"recast": "^0.23.11"
 	},
 	"devDependencies": {
+		"@babel/cli": "^7.28.0",
+		"@babel/core": "^7.28.0",
+		"@babel/preset-env": "^7.28.0",
+		"core-js": "^3.44.0",
 		"esbuild": "^0.25.8",
 		"uglify-js": "^3.19.3"
 	},
 	"scripts": {
-		"bundle": "npx esbuild api.mjs --bundle --outfile=dist.js --alias:os=./os.mjs --alias:fs=./noop.mjs && npx uglifyjs -c -m -o dist.min.js dist.js"
+		"bundle": "npx esbuild api.mjs --bundle --outfile=./dist/bundled.js --alias:os=./os.mjs --alias:fs=./noop.mjs --format=esm && npx babel ./dist/bundled.js --out-file ./dist/babel.js && npx esbuild ./dist/babel.js --bundle --target=es5 --outfile=./dist/dist.js --format=cjs && npx uglifyjs -c -m -o ./dist/dist.min.js ./dist/dist.js"
 	}
 }
