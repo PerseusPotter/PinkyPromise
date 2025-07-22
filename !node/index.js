@@ -16,14 +16,12 @@ function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
       }
     }
     function loop(value) {
-      try {
-        const iter = gen.next(value);
-        if (iter.done) resolve(iter.value);
-        else Promise.resolve(iter.value).then(loop).catch(e => catchMe(e) && loop());
-      } catch (e) {
-        catchMe(e);
-      }
+      let iter = gen.next(value);
+      // fuck you rhino Cannot read property "__RETURN$$" from undefined \`iter.value?.__RETURN$$\`
+      if (iter.value?.['__RETURN$$']) iter = { done: true, value: iter.value.__VALUE$$ };
+      if (iter.done) resolve(iter.value);
+      else Promise.resolve(iter.value).then(loop).catch(e => catchMe(e) && loop());
     }
-    loop();
+    Promise.resolve().then(loop).catch(e => catchMe(e) && loop());
   });
 }`);

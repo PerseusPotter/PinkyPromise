@@ -109,8 +109,10 @@ const asyncRange = (n) => ({
 
 async function testAsyncIterator() {
   const results = [];
+  label:
   for await (const val of asyncRange(3)) {
     results.push(val);
+    if (1 === 2) break label;
   }
   console.assert(JSON.stringify(results) === '[0,1,2]', '❌ Async iterator failed');
 }
