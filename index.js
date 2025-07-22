@@ -365,7 +365,9 @@ export default (function() {
 
   Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
     if (typeof console !== 'undefined' && console) {
-      console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
+      console.warn('Possible Unhandled Promise Rejection:'); // eslint-disable-line no-console
+      console.warn(err.message); // eslint-disable-line no-console
+      console.warn(err.stack); // eslint-disable-line no-console
     }
   };
 
