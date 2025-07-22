@@ -1,4 +1,5 @@
-const { parse, print, types, visit } = require('recast');
+import { parse, print, types, visit } from 'recast';
+import { parse as parseAcorn } from 'acorn';
 const b = types.builders;
 const n = types.namedTypes;
 
@@ -39,14 +40,14 @@ function transformBody(body) {
  * @param {string} str
  * @returns {string}
  */
-module.exports = function transform(str) {
+export default function transform(str) {
   /** @type {import('ast-types').ASTNode} */
   const ast = parse(str, {
     // esprima keeps comments in but acorn supports newer ecma shit
     // line numbers are already fucked anyway
     parser: {
       parse(source) {
-        return require('acorn').parse(source, {
+        return parseAcorn(source, {
           ecmaVersion: 'latest'
         });
       }

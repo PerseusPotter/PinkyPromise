@@ -1,8 +1,9 @@
 const fs = require('fs');
-const transform = require('./api');
+(async () => {
+  const transform = (await import('./api.mjs')).default;
 
-const input = fs.readFileSync('./test.js').toString();
-fs.writeFileSync('./test-out.js', transform(input) + `
+  const input = fs.readFileSync('./test.js').toString();
+  fs.writeFileSync('./test-out.js', transform(input) + `
 function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
   return new Promise((resolve, reject) => {
     const gen = func.call(that);
@@ -25,3 +26,4 @@ function __PROMISEV3_GENERATOR_TO_PROMISE$$(func, that) {
     Promise.resolve().then(loop).catch(e => catchMe(e) && loop());
   });
 }`);
+})();
