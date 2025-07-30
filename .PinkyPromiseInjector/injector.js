@@ -45,7 +45,8 @@
       const src = this.super$loadFromActualUri(uri, base, validator);
       if (!src || src === this.super$NOT_MODIFIED) return src;
 
-      const moduleData = uri.getPath().match(/config\/ChatTriggers\/modules\/([^/]+)\/(.+?\.pjs)$/i);
+      // must end in either .pjs or .p.js (because for entry to work ct finds loader based on file extension)
+      const moduleData = uri.getPath().match(/config\/ChatTriggers\/modules\/([^/]+)\/(.+?\.p\.?js)$/i);
       if (!moduleData) return src;
       const moduleName = moduleData[1];
       const filePath = moduleData[2];
@@ -62,8 +63,6 @@
       const str = writer.toString();
       const modified = nashorn.invokeFunction('transform', str);
 
-      // has to be on same "level" otherwise fucks up relative resolves e.g. `require('../PinkyPromise')`
-      // const outPath = Paths.get(`./config/ChatTriggers/modules/PinkyPromise_Output/${moduleName}/${filePath}`);
       const outPath = Paths.get(`./config/ChatTriggers/modules/PinkyPromiseOutput/${moduleName}/${filePath}`);
 
       Files.createDirectories(outPath.getParent());
