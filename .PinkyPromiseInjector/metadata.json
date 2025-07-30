@@ -3,5 +3,5 @@
   "creator": "Ch1ck3nNeedsRNG",
   "description": "required for async/await",
   "entry": "injector.js",
-  "version": "1.0.1"
+  "version": "1.0.2"
 }
