@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-const fileReg = /^(?!!).+\.(js|json|ts|md)$/;
+const fileReg = /^(?!!).+\.(js|json|ts|md|jar)$/;
 const folderReg = /^(?!!)/;
 const ignored = new Set(['node_modules', 'package.json', 'package-lock.json', 'pnpm-lock.yaml']);
 

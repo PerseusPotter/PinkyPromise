@@ -19,16 +19,22 @@
   const BufferedWriter = Java.type('java.io.BufferedWriter');
   const FileWriter = Java.type('java.io.FileWriter');
 
-  const ScriptEngineManager = Java.type('javax.script.ScriptEngineManager');
-  const ClassLoader = Java.type('java.lang.ClassLoader');
-  const nashorn = new ScriptEngineManager(ClassLoader.getSystemClassLoader()).getEngineByName('nashorn');
-  if (!nashorn) throw 'cannot find nashorn';
+  const nashornCache = Java.type('com.perseuspotter.pinkypromise.Main');
+  const nashorn = nashornCache.cache ?? (function() {
+    const ScriptEngineManager = Java.type('javax.script.ScriptEngineManager');
+    const ClassLoader = Java.type('java.lang.ClassLoader');
+    const engine = new ScriptEngineManager(ClassLoader.getSystemClassLoader()).getEngineByName('nashorn');
+    nashornCache.cache = engine;
 
-  // nashorn fails on the minified version and frankly idc enough
-  const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/.PinkyPromiseInjector/dist.js')).collect(Collectors.joining('\n'));
-  nashorn.eval('var exports = {};');
-  nashorn.eval('var BigInt = {};');
-  nashorn.eval(transformCode);
+    // nashorn fails on the minified version and frankly idc enough
+    const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/.PinkyPromiseInjector/dist.js')).collect(Collectors.joining('\n'));
+    nashorn.eval('var exports = {};');
+    nashorn.eval('var BigInt = {};');
+    nashorn.eval(transformCode);
+
+    return engine;
+  })();
+  if (!nashorn) throw 'cannot find nashorn';
 
   const l1 = new ArrayList();
   l1.add(ModuleManager.INSTANCE.getModulesFolder().toURI());
