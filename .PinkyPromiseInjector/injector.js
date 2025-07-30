@@ -21,17 +21,17 @@
   const URI = Java.type('java.net.URI');
 
   const nashornCache = Java.type('com.perseuspotter.pinkypromise.Main');
-  const nashorn = nashornCache.cache ?? (function() {
+  const nashorn = nashornCache.cached ?? (function() {
     const ScriptEngineManager = Java.type('javax.script.ScriptEngineManager');
     const ClassLoader = Java.type('java.lang.ClassLoader');
     const engine = new ScriptEngineManager(ClassLoader.getSystemClassLoader()).getEngineByName('nashorn');
-    nashornCache.cache = engine;
+    nashornCache.cached = engine;
 
     // nashorn fails on the minified version and frankly idc enough
     const transformCode = Files.lines(Paths.get('./config/ChatTriggers/modules/.PinkyPromiseInjector/dist.js')).collect(Collectors.joining('\n'));
-    nashorn.eval('var exports = {};');
-    nashorn.eval('var BigInt = {};');
-    nashorn.eval(transformCode);
+    engine.eval('var exports = {};');
+    engine.eval('var BigInt = {};');
+    engine.eval(transformCode);
 
     return engine;
   })();
@@ -49,7 +49,7 @@
       if (!moduleData) return src;
       const moduleName = moduleData[1];
       const filePath = moduleData[2];
-      if (!ModuleManager.INSTANCE.getCachedModules().find(v => v.getName().toLowerCase() === moduleName)?.getMetadata()?.getRequires()?.some(v => v.toLowerCase() === 'pinkypromise')) return src;
+      if (!ModuleManager.INSTANCE.getCachedModules().find(v => v.getName().toLowerCase() === moduleName.toLowerCase())?.getMetadata()?.getRequires()?.some(v => v.toLowerCase() === 'pinkypromise')) return src;
 
       const reader = src.getReader();
       const writer = new StringWriter();
