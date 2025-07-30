@@ -44,7 +44,7 @@
       const src = this.super$loadFromActualUri(uri, base, validator);
       if (!src || src === this.super$NOT_MODIFIED) return src;
 
-      const moduleData = uri.getPath().match(/config\/ChatTriggers\/modules\/([^/]+)\/(.+?)$/i);
+      const moduleData = uri.getPath().match(/config\/ChatTriggers\/modules\/([^/]+)\/(.+?\.pjs)$/i);
       if (!moduleData) return src;
       const moduleName = moduleData[1];
       const filePath = moduleData[2];
@@ -63,7 +63,7 @@
 
       // has to be on same "level" otherwise fucks up relative resolves e.g. `require('../PinkyPromise')`
       // const outPath = Paths.get(`./config/ChatTriggers/modules/PinkyPromise_Output/${moduleName}/${filePath}`);
-      const outPath = Paths.get(`./config/ChatTriggers/modules/${moduleName}_PinkyPromise/${filePath}`);
+      const outPath = Paths.get(`./config/ChatTriggers/modules/PinkyPromiseOutput/${moduleName}/${filePath}`);
 
       Files.createDirectories(outPath.getParent());
       try {
@@ -78,11 +78,26 @@
       return new ModuleSource(
         new StringReader(modified),
         src.getSecurityDomain(),
-        outPath.toUri(),
+        uri,
         null,
         src.getValidator()
       );
-    }
+    },
+
+    /*
+  protected ModuleSource loadFromUri(URI uri, URI base, Object validator) throws IOException, URISyntaxException {
+    URI fullUri = new URI(uri + ".js");
+    ModuleSource source = loadFromActualUri(fullUri, base, validator);
+    if (source != null)
+      return source;
+    try {
+      Path path = Paths.get(uri);
+      if (Files.isDirectory(path, new java.nio.file.LinkOption[0]))
+        uri = (new File(new File(uri), "index.js")).toURI();
+    } catch (Exception exception) {}
+    return loadFromActualUri(uri, base, validator);
+  }
+    */
   }, l1, l2);
 
   const moduleProvider = new StrongCachingModuleScriptProvider(sourceProvider);
