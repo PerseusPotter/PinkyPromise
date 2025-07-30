@@ -18,6 +18,7 @@
   const Collectors = Java.type('java.util.stream.Collectors');
   const BufferedWriter = Java.type('java.io.BufferedWriter');
   const FileWriter = Java.type('java.io.FileWriter');
+  const URI = Java.type('java.net.URI');
 
   const nashornCache = Java.type('com.perseuspotter.pinkypromise.Main');
   const nashorn = nashornCache.cache ?? (function() {
@@ -84,20 +85,13 @@
       );
     },
 
-    /*
-  protected ModuleSource loadFromUri(URI uri, URI base, Object validator) throws IOException, URISyntaxException {
-    URI fullUri = new URI(uri + ".js");
-    ModuleSource source = loadFromActualUri(fullUri, base, validator);
-    if (source != null)
-      return source;
-    try {
-      Path path = Paths.get(uri);
-      if (Files.isDirectory(path, new java.nio.file.LinkOption[0]))
-        uri = (new File(new File(uri), "index.js")).toURI();
-    } catch (Exception exception) {}
-    return loadFromActualUri(uri, base, validator);
-  }
-    */
+    loadFromUri(uri, base, validator) {
+      const fullUri = new URI(uri + '.pjs');
+      const source = this.loadFromActualUri(fullUri, base, validator);
+      if (source) return source;
+
+      return this.super$loadFromUri(uri, base, validator);
+    }
   }, l1, l2);
 
   const moduleProvider = new StrongCachingModuleScriptProvider(sourceProvider);
